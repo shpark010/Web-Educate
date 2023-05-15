@@ -1,0 +1,7 @@
+INDEX VERSION 1.132
+C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1612422193.index
+\Webclient\src\main\java
+C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\144024886.index
+\WebScript\src\main\java
+C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3900968690.index
+\WebClient\src\main\java

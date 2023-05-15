@@ -1,0 +1,5 @@
+INDEX VERSION 1.4+C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1612422193.index
+2754966762.index
+2019357363.index
+2803804213.index

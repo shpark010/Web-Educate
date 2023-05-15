@@ -1,0 +1,75 @@
+/* 초기화 */
+html, body, div, header, nav, section, aside, article, form, fieldset, footer, figure, figcaption, legend, ul, ol, li, dl,
+dt, dd, h1, h2, h3, h4, p {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    list-style: none;
+}
+fieldset {
+    border: 0;
+}
+
+/* 화면 레이아웃 */
+#wrapper {
+    position: relative;
+    height: 90vh;
+}
+
+#main_menu {
+    width: 100%;
+    height: 60px;
+    position: absolute;
+}
+
+header, #contents {
+    width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* 메인 메뉴 */
+#main_menu ul {
+    position: absolute;
+    z-index: 10;
+    white-space: nowrap;
+    height: 60px;
+}
+
+#main_menu li {
+    position: relative;
+    margin-left: 50px;
+    padding: 8px 0 7px 15px;
+    vertical-align: middle;
+}
+#main_menu li, #main_menu a {
+    display: inline-block;
+}
+
+#main_menu li > a:focus {
+    color: #999999;
+    
+}
+
+#main_menu > li:hover ul {
+    display: block;
+    padding: 5px 0;
+    font-size: 1.2em;
+}
+
+#main_menu ul a {
+    color: #606060;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+#main_menu ul > li:hover a {
+    color: #999999;
+}
+
+#contents {
+    position: relative;
+    top: 65px;
+}

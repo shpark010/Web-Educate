@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	let checkflag = "false"; //global
+	
+	function checkForm() {
+		let list = document.myform.list;
+		console.log(list);	//[input ..][input ..]
+		console.log(list.length);
+		
+		if(checkflag == "false") {
+			for(let index in list) { //point	//javascript 배열의 점자 리턴(index)
+				console.log(list[index]);
+				list[index].checked=true;	//<input type="checkbox" checked="checked name="list" value
+			}
+			checkflag = "true";
+			return "[선택해제하기]";
+		}else {
+			for(let index in list) { //point	//javascript 배열의 점자 리턴(index)
+				console.log(list[index]);
+				list[index].checked=true;	//<input type="checkbox" checked="checked name="list" value
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<form action="" name="myform">
+		좋아하는 과목은 : <br>
+		<input type="checkbox" name="list" value="JAVA">JAVA<br>
+		<input type="checkbox" name="list" value="ORACLE">ORACLE<br>
+		<input type="checkbox" name="list" value="HTML">HTML<br>
+		<input type="checkbox" name="list" value="CSS">CSS<br>
+		<input type="checkbox" name="list" value="SCRIPT">SCRIPT<br>
+	</form>
+</body>
+</html>
