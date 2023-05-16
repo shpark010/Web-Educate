@@ -73,7 +73,7 @@
 
         // 천단위 콤마 처리 함수
         function format(money) {
-            return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
+            return  Math.round((money*10)/10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
         }
     </script>
 </head>
