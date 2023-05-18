@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+            let myphotos = ["images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg"];
+
+            //문제
+            /*
+            a click 이벤트를 동적으로 부여하시고 (addEvent...)
+            */
+            let index = 0;
+            let prv = document.getElementById('prv');
+            prv.addEventListener('click', function () {
+                if (index == 0) {
+                    index = myphotos.length;
+                }
+                document.getElementById('imgs').setAttribute('src', myphotos[--index]);
+
+            });
+
+
+            let next = document.getElementById('next');
+            next.addEventListener('click', function () {
+                if (++index == myphotos.length) {
+                    index = 0;
+                }
+                document.getElementById('imgs').setAttribute('src', myphotos[index]);
+                
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h3>DOM 슬라이드</h3>
+    <img src="images/1.jpg" alt="이미지" id="imgs" width="200" height="200">
+    <hr>
+    <a href="#" id="prv">이전</a>||<a href="#" id="next">다음</a>
+</body>
+
+</html>

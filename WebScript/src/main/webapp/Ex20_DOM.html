@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /*
+        onload 이벤트가 발생하는 시점 : body 태그 안에 있는 모든 요소가 브라저 메모리에 loding후에 >> DOM 생성
+        함수하나 : function call(){}
+
+        1. <body onload="call()">
+        2. window.onload = call();
+        2.1 window,onload = function(){};
+        function call(){} 생성하는 이유 : 재사용을 위해 (call 이름이 있으니 필요하면 재사용)
+        함수를 재사용하지 않으려면....함수의 이름을 생략 >> 익명함수(일회성 함수) : 재사용 불가
+        */
+        window.onload = function () {    //익명함수 (핸들러)
+            let out = "";
+            out += "<ul>";
+            out += "<li>javascript</li>";
+            out += "<li>jquery</li>";
+            out += "<li>react</li>";
+            out += "</ul>";
+            document.body.innerHTML += out;
+
+            //DOM >> 동적 >> 기존에 없던 것을 추가 , 있는 것을 삭제 , 있는 것을 변경
+            const header = document.createElement("h1");
+            //header > <h1></h1>
+            const textnode = document.createTextNode("hello");
+
+            header.appendChild(textnode);
+            //<h1>hello</h1>
+            console.log(header);
+
+            //body 자식요소
+            //기존에 .... <ul></ul>
+
+            document.body.appendChild(header);
+
+            //img 태그 동적으로 생성하고 src 속성도 동적으로 추가하고
+            //src 속성에 w3schools.jpg 넣고 body작식으로 append
+            //width = 150 , heigth = 150
+            //<img src = "images/w3schools.jpg" width="150" height="150">
+            let img = document.createElement("img");
+            img.setAttribute("src", "images/w3schools.jpg");
+            //img.setAttribute("width", "150");
+            //img.setAttribute("heigth", "150");
+            
+            document.body.appendChild(img);
+        }
+    </script>
+</head>
+
+<body>
+    HELLO WORLD
+</body>
+
+</html>

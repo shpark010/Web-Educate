@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%
+        }
+
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+
+        td {
+            background-color: gold;
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            //동적 테이블 생성
+            document.getElementById('b1').onclick = function () {
+                let ct = document.createElement('table');
+                ct.setAttribute('id', 'Tab');
+                let row = parseInt(document.getElementById("txtrow").value);
+                let col = parseInt(document.getElementById("txtcolumn").value);
+                for (let i = 0; i < row; i++) {
+                    let tr = document.createElement('tr');
+                    for (let j = 0; j < col; j++) {
+                        if (i == 0) {
+                            let td = document.createElement("th");
+                            let txt = document.createTextNode((i + 1) + "행" + "," + (j + 1) + "열");
+                            td.appendChild(txt);
+                            tr.appendChild(td);
+                        } else {
+                            let td = document.createElement("td");
+                            let txt = document.createTextNode((i + 1) + "행" + "," + (j + 1) + "열");
+                            td.appendChild(txt);
+                            tr.appendChild(td);
+                        }
+                    }
+                    ct.appendChild(tr);
+                }
+                document.getElementById('div').appendChild(ct);
+            }
+
+            //동적 테이블 생성된 테이블 하나씩 삭제
+            document.getElementById('b2').onclick = function () {
+                /*
+                //1. id삭제하기
+                //원칙 : id = "Tab" 페이지에 1개만 존재(식별자)
+                let tab = document.getElementById("Tab");
+                //제일 처음 만나는 id = Tab 만 가져온다.
+                console.log(tab);
+                document.getElementById("div").removeChild(tab);
+                //단, 조건 필요
+                */
+
+                //2. Table id 속성이 없다면..
+                let tables = document.getElementsByTagName("table");
+                console.log(tables);
+                console.log(tables.length);
+                console.log(tables[tables.length - 1]);
+
+                //table 배열의 마지막 요소부터 삭제
+                if (tables.length > 0) {
+                    document.getElementById("div").removeChild(tables[tables.length - 1]);
+                } else {
+                    alert("없어");
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div">
+        행의수 : <input type="text" id="txtrow" name="txtrow" value="2"><br>
+        열의수 : <input type="text" id="txtcolumn" name="txtcolumn" value="2"><br>
+        <input type="button" id="b1" value="동적테이블 생성">
+        <input type="button" id="b2" value="동적테이블 제거">
+    </div>
+</body>
+
+</html>

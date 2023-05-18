@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="myList"><li>coffee</li><li>tea</li><li>milk</li></ul>
+    <button onclick="myFunc()">클릭</button>
+    <button onclick="myFunc2()">클릭2</button>
+</body>
+<script type="text/javascript">
+    function myFunc() {
+        let list = document.getElementById("myList");
+        console.log(list);
+        list.removeChild(list.childNodes[0]);
+        //<ul> 태그 안의 li, li, li 내부적으로 배열
+        //select > option, option, ...
+
+        //JAVA : ArrayList 성질과 같다 ... [0][1][2]  ******
+
+        function myFunc2() {
+            let textnode = document.createTextNode("water");
+            list.r
+        }
+    }
+</script>
+</html>
