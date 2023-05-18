@@ -160,7 +160,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Web_Project" path="/Web_Project" reloadable="true" source="org.eclipse.jst.jee.server:Web_Project"/><Context docBase="C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Webclient" path="/Webclient" reloadable="true" source="org.eclipse.jst.jee.server:Webclient"/></Host>
+      <Context docBase="C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Web_Project" path="/Web_Project" reloadable="true" source="org.eclipse.jst.jee.server:Web_Project"/><Context docBase="C:\Duzon\Web\WebClient\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WebScript" path="/WebScript" reloadable="true" source="org.eclipse.jst.jee.server:WebScript"/></Host>
     </Engine>
   </Service>
 </Server>
