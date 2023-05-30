@@ -41,4 +41,5 @@ a {
   height: calc(100% - 64px);
   position: absolute;
   bottom: 0px;
+  overflow-y: auto;
 }

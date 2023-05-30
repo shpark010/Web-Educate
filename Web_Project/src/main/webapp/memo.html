@@ -1,80 +1,382 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/common.css">
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5072975cbf3c8c9ee1761bb85e0c4dd3"></script>
-    <script>
-        window.onload = function () {
-            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-                mapOption = {
-                    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                    level: 3 // 지도의 확대 레벨
-                };
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <style>
+      .content-box {
+        width: 100%;
+        margin-top: 32px;
+        display: flex;
+        /* display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        세로 정렬 content-box
+        align-content: space-evenly;
+        가로 정렬 content-box
+        justify-content: space-evenly;
+        세로 정렬 postit
+        align-items: start;
+        가로 정렬 postit
+        justify-items: center; */
+      }
 
-            var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+      .dropzone {
+        width: 25%;
+        padding: 32px;
+      }
 
-            // 지도를 클릭한 위치에 표출할 마커입니다
-            var marker = new kakao.maps.Marker({
-                // 지도 중심좌표에 마커를 생성합니다 
-                position: map.getCenter()
-            });
-            // 지도에 마커를 표시합니다
-            marker.setMap(map);
+      .postit {
+        width: 320px;
+        height: 240px;
+        margin-bottom: 32px;
+        background-color: #ffff98;
+        border-radius: 5px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.159),
+          0 10px 23px rgba(0, 0, 0, 0.081);
+        position: relative;
+      }
 
-            // 지도에 클릭 이벤트를 등록합니다
-            // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-            kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+      .postit.gray::before {
+        width: 100%;
+        height: 24px;
+        top: 0;
+        left: 0;
+        content: "";
+        position: absolute;
+        background-color: #393e46;
+      }
 
-                // 클릭한 위도, 경도 정보를 가져옵니다 
-                var latlng = mouseEvent.latLng;
+      .postit.red::before {
+        width: 100%;
+        height: 24px;
+        top: 0;
+        left: 0;
+        content: "";
+        position: absolute;
+        background-color: #ffabab;
+      }
 
-                // 마커 위치를 클릭한 위치로 옮깁니다
-                marker.setPosition(latlng);
+      .postit.green::before {
+        width: 100%;
+        height: 24px;
+        top: 0;
+        left: 0;
+        content: "";
+        position: absolute;
+        background-color: #c7e9b0;
+      }
 
-                var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-                message += '경도는 ' + latlng.getLng() + ' 입니다';
+      .postit.blue::before {
+        width: 100%;
+        height: 24px;
+        top: 0;
+        left: 0;
+        content: "";
+        position: absolute;
+        background-color: #b0daff;
+      }
 
-                var resultDiv = document.getElementById('clickLatlng');
-                resultDiv.innerHTML = message;
+      .status.gray {
+        width: 100%;
+        height: 100%;
+        background: #9ba4b5;
+      }
 
-            });
-        }
-    </script>
-</head>
+      .status.red {
+        width: 100%;
+        height: 100%;
+        background: #fcc8d1;
+      }
 
-<body>
-    <div id="wrapper">
+      .status.green {
+        width: 100%;
+        height: 100%;
+        background: #ddffbb;
+      }
 
-        <!--header 영역 -->
-        <header>
-            <!-- 메인 메뉴 영역-->
-            <div id="main_menu">
-                <nav>
-                    <ul>
-                        <li><a href="index.html">HOME</a> </li>
-                        <li><a href="map.html">MAP</a></li>
-                        <li><a href="memo.html">MEMO</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-        <!-- body 영역 -->
-        <div id="contents">
-            <div id="map" style="width:100%;height:900px;"></div>
-            <p><em>지도를 클릭해주세요!</em></p>
-            <div id="clickLatlng"></div>
+      .status.blue {
+        width: 100%;
+        height: 100%;
+        background: #daf5ff;
+      }
+
+      .content {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        height: calc(100% - 24px);
+        padding: 14px;
+      }
+
+      .place,
+      .address,
+      .lat,
+      .lng {
+        display: flex;
+        margin-bottom: 8px;
+      }
+
+      .highlight {
+        background-color: #cdc11a;
+      }
+
+      .label {
+        background-color: rgb(240, 111, 60);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 14px;
+        font-size: 14px;
+        margin-right: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <ul class="navi-bar">
+          <li><a href="home.html">홈</a></li>
+          <li><a href="map.html">지도</a></li>
+          <li><a href="memo.html">메모</a></li>
+        </ul>
+      </div>
+      <div class="main">
+        <div class="content-box">
+          <div class="dropzone gray"></div>
+          <div class="dropzone red"></div>
+          <div class="dropzone green"></div>
+          <div class="dropzone blue"></div>
         </div>
-        <!-- footer 영역 -->
-        <footer>
-
-        </footer>
+      </div>
+      <div class="footer"></div>
     </div>
-</body>
 
+    <script>
+      let datas = JSON.parse(localStorage.getItem("places"));
+
+      let contentDiv = document.getElementsByClassName("content-box")[0];
+      let grayDiv = document.getElementsByClassName("gray")[0]; // gray
+      let redDiv = document.getElementsByClassName("red")[0]; // red
+      let greenDiv = document.getElementsByClassName("green")[0]; // green
+      let blueDiv = document.getElementsByClassName("blue")[0]; // blue
+
+      let item = "";
+      let grayitem = "";
+      let reditem = "";
+      let greenitem = "";
+      let blueitem = "";
+
+      for (let i = 0; i < datas.length; i++) {
+        let place = datas[i].name;
+        let address = datas[i].addr;
+        let position = datas[i].position;
+        let lat = datas[i].lat;
+        let lng = datas[i].lng;
+
+        switch (position) {
+          case "gray":
+            grayPost();
+            break;
+          case "red":
+            redPost();
+            break;
+          case "green":
+            greenPost();
+            break;
+          case "blue":
+            bluePost();
+            break;
+          default:
+            break;
+        }
+
+        function grayPost() {
+          grayitem += `
+          <div class="postit ${position}" draggable="true">
+            <div class="status ${position}"></div>
+            <div class="content">            
+              <div class="place">
+                <div class="label">장소</div>
+                <p class="place-name">${place}</p>
+              </div>
+              <div class="address">
+                <div class="label">주소</div>
+                <p class="address-name">${address}</p>
+              </div>
+              <div class="lat">
+                <div class="label">위도</div>
+                <p class="lat-name">${Number(lat).toFixed(2)}</p>
+              </div>
+              <div class="lng">
+                <div class="label">경도</div>
+                <p class="lng-name">${Number(lng).toFixed(2)}</p>
+              </div>
+            </div>
+          </div>`;
+        }
+
+        function redPost() {
+          reditem += `
+          <div class="postit ${position}" draggable="true">
+            <div class="status ${position}"></div>
+            <div class="content">            
+              <div class="place">
+                <div class="label">장소</div>
+                <p class="place-name">${place}</p>
+              </div>
+              <div class="address">
+                <div class="label">주소</div>
+                <p class="address-name">${address}</p>
+              </div>
+              <div class="lat">
+                <div class="label">위도</div>
+                <p class="lat-name">${Number(lat).toFixed(2)}</p>
+              </div>
+              <div class="lng">
+                <div class="label">경도</div>
+                <p class="lng-name">${Number(lng).toFixed(2)}</p>
+              </div>
+            </div>
+          </div>`;
+        }
+
+        function greenPost() {
+          greenitem += `
+          <div class="postit ${position}" draggable="true">
+            <div class="status ${position}"></div>
+            <div class="content">            
+              <div class="place">
+                <div class="label">장소</div>
+                <p class="place-name">${place}</p>
+              </div>
+              <div class="address">
+                <div class="label">주소</div>
+                <p class="address-name">${address}</p>
+              </div>
+              <div class="lat">
+                <div class="label">위도</div>
+                <p class="lat-name">${Number(lat).toFixed(2)}</p>
+              </div>
+              <div class="lng">
+                <div class="label">경도</div>
+                <p class="lng-name">${Number(lng).toFixed(2)}</p>
+              </div>
+            </div>
+          </div>`;
+        }
+
+        function bluePost() {
+          blueitem += `
+          <div class="postit ${position}" draggable="true">
+            <div class="status ${position}"></div>
+            <div class="content">            
+              <div class="place">
+                <div class="label">장소</div>
+                <p class="place-name">${place}</p>
+              </div>
+              <div class="address">
+                <div class="label">주소</div>
+                <p class="address-name">${address}</p>
+              </div>
+              <div class="lat">
+                <div class="label">위도</div>
+                <p class="lat-name">${Number(lat).toFixed(2)}</p>
+              </div>
+              <div class="lng">
+                <div class="label">경도</div>
+                <p class="lng-name">${Number(lng).toFixed(2)}</p>
+              </div>
+            </div>
+          </div>`;
+        }
+      }
+      grayDiv.innerHTML = grayitem;
+      redDiv.innerHTML = reditem;
+      greenDiv.innerHTML = greenitem;
+      blueDiv.innerHTML = blueitem;
+
+      window.onload = function () {
+        var postits = document.querySelectorAll(".postit"); //.card를 가진 elements 배열
+        var dropzones = document.querySelectorAll(".dropzone"); //.dropzone을 가진 elements 배열
+
+        postits.forEach((postit) => {
+          postit.addEventListener("dragstart", dragStart);
+          postit.addEventListener("drag", drag); // drag 여러번 발생
+          postit.addEventListener("dragend", dragEnd);
+        });
+
+        /*---------- .card : Drag 요소 함수들 ----------*/
+
+        function dragStart() {
+          //console.log("카드 : dragstart" );
+          this.parentNode.classList.add("highlight");
+          // this = postit
+          this.classList.add("is-dragging");
+        }
+
+        function drag() {
+          //console.log("카드 : dragging" );
+          // this = card
+        }
+
+        function dragEnd() {
+          console.log("카드 : drag end");
+          dropzones.forEach((dropzone) =>
+            dropzone.classList.remove("highlight")
+          );
+
+          // this = card
+          this.classList.remove("is-dragging");
+
+          let newColor = this.parentNode.classList[1];
+          let oldColor = this.childNodes[1].classList[1];
+          this.childNodes[1].classList.replace(oldColor, newColor);
+          this.classList.replace(oldColor, newColor);
+        }
+
+        dropzones.forEach((dropzone) => {
+          dropzone.addEventListener("dragenter", dragEnter);
+          dropzone.addEventListener("dragover", dragOver); // dragOver 여러번 발생
+          dropzone.addEventListener("dragleave", dragLeave);
+          dropzone.addEventListener("drop", drop);
+        });
+
+        /*---------- .dropzone : Drop 요소 함수들 ----------*/
+
+        function dragEnter() {
+          //console.log("드랍 : dragEnter");
+          //this = dropzone
+        }
+
+        function dragOver() {
+          //console.log("드랍 : dragOver");
+          //this = dropzone
+          //console.log(this);
+          this.classList.add("dragover");
+          this.classList.add("highlight");
+
+          var postOn = document.querySelector(".is-dragging"); // drag중인 단일 card
+
+          this.appendChild(postOn);
+        }
+
+        function dragLeave() {
+          //console.log("드랍 : dragLeave");
+          this.classList.remove("dragover");
+          this.classList.remove("highlight");
+
+          //this = dropzone
+        }
+
+        function drop() {
+          //console.log("드랍 : drop");
+          //this = dropzone
+          this.classList.remove("dragover");
+        }
+      };
+    </script>
+  </body>
 </html>

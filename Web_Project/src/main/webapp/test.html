@@ -2,112 +2,67 @@
 <html lang="en">
 
 <head>
-    <title>W3.CSS Template</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins" />
-    <style>
-        body,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5 {
-            font-family: "Poppins", sans-serif;
-        }
-
-        body {
-            font-size: 16px;
-        }
-
-        .w3-half img {
-            margin-bottom: -6px;
-            margin-top: 16px;
-            opacity: 0.8;
-            cursor: pointer;
-        }
-
-        .w3-half img:hover {
-            opacity: 1;
-        }
-
-        .w3-main .team1 {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-    <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding"
-        style="z-index: 3; width: 300px; font-weight: bold" id="mySidebar">
-        <br />
-        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
-            style="width: 100%; font-size: 22px">Close Menu</a>
-        <div class="w3-container">
-            <h3 class="w3-padding-64">
-                <b>1조<br />손송박이</b>
-            </h3>
-        </div>
-        <div class="w3-bar-block">
-            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">홈</a>
-            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">개별프로젝트</a>
-            <a href="sma.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">손민아</a>
-            <a href="shs.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">송하석</a>
-            <a href="psh.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">박성환</a>
-            <a href="ljh.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">이진호</a>
-        </div>
-    </nav>
-
-    <!-- Top menu on small screens -->
-    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-        <span>Company Name</span>
-    </header>
-
-    <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="close side menu"
-        id="myOverlay"></div>
-
-    <!-- !PAGE CONTENT! -->
-    <div class="w3-main" style="margin-left: 340px; margin-right: 40px">
-        <!-- Header -->
-        <div class="w3-container" style="margin-top: 80px" id="showcase">
-            <h1 class="w3-xxxlarge w3-text-red"><b>개별 프로젝트</b></h1>
-            <hr style="width: 50px; border: 5px solid red" class="w3-round" />
-        </div>
-    </div>
-
-    <div class="team1 w3-container">
-        asdf
-        <div class="sma">asdf</div>
-        <div class="shs">asdf</div>
-        <div class="psh">asdf</div>
-        <div class="ljh">asdf</div>
-    </div>
-
-    <script>
-        // Script to open and close sidebar
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
-
-        // Modal Image Gallery
-        function onClick(element) {
-            document.getElementById("img01").src = element.src;
-            document.getElementById("modal01").style.display = "block";
-            var captionText = document.getElementById("caption");
-            captionText.innerHTML = element.alt;
-        }
-    </script>
+    <!-- 지도를 표시할 div 입니다 -->
+<div id="map" style="width:900px;height:900px;"></div>
+<button value="내 위치 찾기" onclick="mylocation()"></button>
 </body>
+<!-- KakaoMap API 스크립트 로드 -->
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5072975cbf3c8c9ee1761bb85e0c4dd3&libraries=services"></script>
+<script>
+    // YOUR_APP_KEY에는 발급받은 KakaoMap API 키를 넣어주세요.
+
+    // 내 위치 확인 함수
+    function showMyLocation(latitude, longitude) {
+        // KakaoMap API를 초기화
+        kakao.maps.load(function () {
+            // 지도 생성 및 표시할 컨테이너 지정
+            var container = document.getElementById('map');
+            var options = {
+                center: new kakao.maps.LatLng(latitude, longitude),
+                level: 3
+            };
+
+            // 지도 생성
+            var map = new kakao.maps.Map(container, options);
+
+            // 마커 생성 및 표시
+            var markerPosition = new kakao.maps.LatLng(latitude, longitude);
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+            marker.setMap(map);
+        });
+    }
+
+    // 위치 정보 가져오기 성공 콜백 함수
+    function successCallback(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        console.log("위도 : " + latitude);
+        console.log("경도 : " + longitude);
+        console.log("위치 정확도 : " + position.coords.accuracy);
+        console.log("평균 해수면 높이 : " + position.coords.altitude);
+        console.log("평균 해수면 높이 정확도 : " + position.coords.altitudeAccuracy);
+        console.log("북쪽부터 시계 방향으로의 각도 : " + position.coords.heading );
+        console.log("초당 미터 단위의 속도 : " + position.coords.speed );
+        console.log("응답의 날짜/시간  : " + position.timestamp );
+        showMyLocation(latitude, longitude);
+    }
+
+    // 위치 정보 가져오기 실패 콜백 함수
+    function errorCallback(error) {
+        console.error("위치 정보를 가져오는 데 실패했습니다.", error);
+    }
+
+    // 현재 위치 정보 가져오기
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+</script>
 
 </html>
