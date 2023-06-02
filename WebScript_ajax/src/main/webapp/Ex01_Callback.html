@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+        콜백은 다른 함수에 [인수 parameter]로 전달되는 함수입니다.
+        이 기술을 사용하면 함수가 다른 함수를 호출할 수 있습니다.
+        다른 함수가 완료된 후 콜백 함수를 실행할 수 있습니다.
+
+        A callback is a function passed as an argument to another function
+        This technique allows a function to call another function
+        A callback function can run after another function has finished
+        */
+    </script>
+</head>
+
+<body>
+    <h1>JavaScript Functions</h1>
+    <h2>Callback Functions</h2>
+
+    <p>The result of the calculation is:</p>
+    <p id="demo"></p>
+    <script>
+        function myDisplayer(something) {
+            document.getElementById("demo").innerHTML = something;
+        }
+
+        function myCalculator(num1, num2, myCallback) {
+            let sum = num1 + num2;
+            myCallback(sum);
+        }
+
+        myCalculator(5, 5, myDisplayer);
+
+        /*
+        When you pass a function as an argument, remember not to use parenthesis.
+        Right: myCalculator(5, 5, myDisplayer);
+        Wrong: myCalculator(5, 5, myDisplayer()); // 직접 호출하면 안된다!!!
+        */
+    </script>
+</body>
+
+</html>

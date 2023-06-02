@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //$.ajax('url',function(){})
+        //$.ajax('url',(response)=>{})
+
+        //비동기 함수 처리
+        /*
+        function delay(sec,callback) {  //String sec, Object callback 함수의 주소를 받는다.
+            setTimeout(() => {
+                callback(new Date());
+            }, sec * 1000)
+        }
+        consle.log('delay star',new Date);
+        //function call(result){console.log(result)}
+        //delay(1,call);
+        delay(1,(result) => {cosole.log(result)});
+
+        console.log('delay enddd');
+
+        결과 : 비동기 함수가 있기 때문에 순서가 보장 되지 않은다.
+        
+        //3개의 함수를 만들ㅇ서 일정한 초 간격으로 출력되기를 바란다.
+        function delay(sec,callback) {  //String sec, Object callback 함수의 주소를 받는다.
+            setTimeout(() => {
+                callback(new Date());
+            }, sec * 1000)
+        }
+        
+        delay(2,(result) => {console.log(1, result)});
+        delay(2,(result) => {console.log(2, result)});
+        delay(2,(result) => {console.log(3, result)});
+        
+        //3개 함수 거의 동시 2초 뒤에 실행
+        
+        //3개의 비동기 함수가 순차적으로 실행되기를 원한다.
+        //함수(함수(함수()))
+        //callback 패턴(콜백안에 콜백)
+        function delay(sec, callback) {  //String sec, Object callback 함수의 주소를 받는다.
+            setTimeout(() => {
+                callback(new Date());
+            }, sec * 1000)
+        }
+        
+        delay(2, (result) => {
+            console.log(1, result);
+            delay(2, (result) => {
+                console.log(2, result);
+                delay(2, (result) => {
+                    console.log(3, result);
+                });
+            });
+        });
+        //callback의 지옥에서 탈출하자
+        //비동기를 순차적으로 실행하자
+        //필요 > promise
+        
+        function delayPromise(sec) {
+            //return new Promise(function(resolve, reject) { //정상(resolve) , 예외(reject)
+                //});
+                return new Promise((resolve,reject)=> {
+                    setTimeout(() => {
+                    resolve(new Date);
+                }, sec * 1000);
+            });
+        }
+        
+        delayPromise(1).then((result)=>{console.log(1,result)});
+        
+        //당신이 Promise를 사용한다 하더라도 callback에 callback하는 것 처럼 사용한다면 ....
+        //다를 것이 없다
+        
+        function delayPromise(sec) {
+                return new Promise((resolve,reject)=> {
+                    setTimeout(() => {
+                        resolve(new Date);
+                    }, sec * 1000);
+                });
+        }
+        
+        //문제는 없지만 Promise를 제대로 사용하는 것은 아니다 (유지보수에 어려움)
+        delayPromise(1).then((result)=>{console.log(1,result);
+            delayPromise(1).then((result)=>{console.log(2,result)});
+        });
+        */
+
+        //Promise 제대로 사용하기...
+        function delayPromise(sec) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(new Date);
+                }, sec * 1000);
+            });
+        }
+
+        /*
+        good
+        //문제는 없지만 Promise를 제대로 사용하는 것은 아니다 (유지보수에 어려움)
+        delayPromise(1).then((result) => {
+            console.log(1, result);
+            return delayPromise(1);
+        }).then((result) => {
+            console.log(2, result);
+            return delayPromise(1);
+        }).then((result) => {
+            console.log(3,result);
+        });
+        */
+        //간단하게
+        delayPromise(1).then((result) => {
+            console.log(1, result);
+            return delayPromise(1);
+        }).then((result) => {
+            console.log(2, result);
+            return delayPromise(1);
+        }).then((result) => {
+            console.log(3, result);
+            return "kosa";  //promise 객체를 리턴하지 않았기 때문에 지연없이 출력 가능
+        }).then((result) => {
+            console.log(result);
+        });
+
+        //https://www.w3schools.com/js/js_promise.asp
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
