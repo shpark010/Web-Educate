@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        /*
+        jQuery.post( url [, data ] [, success ] [, dataType ] )
+        xmlHttpRequest >> xhr.open("POST","") 동일
+
+        1. Bad
+        $.post("Ex03_Server.jsp?name=hong&pwd=1004");
+
+        2. oso
+        const name = $('#name').val();
+        const pwd = $('#pwd').val();
+        const param = "name="+name+"&pwd="+pwd;
+        $.post("Ex03_Server.jsp",param);
+
+        3. Good (parameter를 json 객체로 만들어 사용)
+        const data = {"name":$('#name').val(), "pwd":$('#pwd').val()}
+        $.post("Ex03_Server.jsp",data);
+        $.post("Ex03_Server.jsp",{"name":$('#name').val(), "pwd":$('#pwd').val()});
+        */
+        $(function() {
+            $('#btn').click(function() {
+                const data = {"name":$('#name').val(), "pwd":$('#pwd').val()};
+                $.post("Ex03_Server.jsp", data , function(responseText){//응답이 왔고 정상이라면 자동 호출
+                    $('#message').html(responseText);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    이름:<input type="text" id="name"><br>
+    비번:<input type="text" id="pwd"><br>
+    <input type="button" id="btn" value="비동기 전송"><br>
+    <hr>
+    <div id="message"></div>
+</body>
+</html>

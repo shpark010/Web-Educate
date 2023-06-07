@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        /*
+        http://api.flickr.com/services/feeds/photos_public.gne?tags=raccoon&tagmode=any&format=json&jsoncallback=?
+        getJSON을 통해 데이터 비동기 처리하기
+
+
+        http://api.flickr.com/services/feeds/photos_public.gne?
+        
+        JSON 객체 가공
+        tags=raccoon&tagmode=any&format=json&jsoncallback=?
+
+        input type="text" >> 싸이
+        const data = {tags: , tagmode=any , format:json}
+
+        데이터 받아서 처리 ex) 라쿤 >> 이미지 경로
+        이미지 경로만 추출
+        tags=raccoon&tagmode=any&format=json&jsoncallback=?
+        */
+        $(function () {
+            $('#btn').click(function() {
+                //let search = $('#search').val();
+                let url = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+                const data = {tags : $('#search').val() ,tagmode : "any" ,format : "json"};
+                $('#display').empty();
+                $.getJSON(url,data,function(responseText) {
+                    $.each(responseText.items,function(index, element) {
+                        imgsrc.push(element.media.m);
+                        $('#display').append($('<img>',{
+                            src : element.media.m
+                        }));
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <input type="text" id="search">
+    <input type="button" value="검색" id="btn">
+    <div id="display"></div>
+</body>
+
+</html>
