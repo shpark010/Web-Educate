@@ -15,7 +15,7 @@
             <div>
                 <ul>
                 	<!-- a : 페이지 이동을 처리하는 마크업 -->
-                    <li><a href="${pageContext.request.contextPath}/BoardList.do">BOARD LIST</a></li>
+                    <li><a href="BoardList.do">BOARD LIST</a></li>
 					<li><a href="${pageContext.request.contextPath}/BoardWrite.do">BOARD WRITE</a></li>
 					<li><a href="javscript:void(0);"></a></li>
 					<li><a href="javscript:void(0);"></a></li>

@@ -18,7 +18,14 @@
 	<c:import url="/WEB-INF/views/include/header.jsp" />
 	게시판 목록
 	<br>
-
+<!-- 
+			request.setAttribute("pagesize", pagesize);
+			request.setAttribute("cpage", cpage);
+			request.setAttribute("pagecount", pagecount);
+			request.setAttribute("list", list);
+			request.setAttribute("totalboardcount", totalboardcount);
+			request.setAttribute("pager", pager);
+ -->
 	<c:set var="pagesize" value="${requestScope.pagesize}" />
 	<c:set var="cpage" value="${requestScope.cpage}" />
 	<c:set var="pagecount" value="${requestScope.pagecount}" />

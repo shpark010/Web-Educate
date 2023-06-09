@@ -106,7 +106,7 @@
 
 				
 
-			<Context docBase="Team_HomeWork" path="/Web_Jquery_Board" reloadable="true" source="org.eclipse.jst.jee.server:Team_HomeWork"/><Context docBase="WebServlet_92_Board_Model2_Mvc" path="/WebServlet_92_Board_Model2_Mvc" reloadable="true" source="org.eclipse.jst.jee.server:WebServlet_92_Board_Model2_Mvc"/></Host>
+			<Context docBase="Team_HomeWork" path="/Web_Jquery_Board" reloadable="true" source="org.eclipse.jst.jee.server:Team_HomeWork"/><Context docBase="WebServlet_92_Board_Model2_Mvc" path="/WebServlet_92_Board_Model2_Mvc" reloadable="true" source="org.eclipse.jst.jee.server:WebServlet_92_Board_Model2_Mvc"/><Context docBase="Emp2_Model2_Mvc_Team1" path="/Emp2_Model2_Mvc_Team1" reloadable="true" source="org.eclipse.jst.jee.server:Emp2_Model2_Mvc_Team1"/></Host>
 		</Engine>
 	</Service>
 </Server>

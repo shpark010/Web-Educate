@@ -23,8 +23,8 @@ public class BoardContentService implements Action {
 		String cpage = request.getParameter("cp"); // current page
 		String pagesize = request.getParameter("ps"); // pagesize
 		
-		Board board = new Board();
-		List<Reply> replyList = new ArrayList<>();
+		Board board = new Board(); //board
+		List<Reply> replyList = new ArrayList<>(); //rely (하나의 게시글은 여러개의 덧글을 가진다)
 		
 		boolean isread = false;
 
